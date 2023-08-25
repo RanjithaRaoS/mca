@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h2>My Trainings</h2>
+
+    {% if trainings %}
+        <table>
+            <tr>
+                <th>Name</th>
+                <th>Start Date</th>
+                <th>End Date</th>
+            </tr>
+            {% for training in trainings %}
+                <tr>
+                    <td><a href="{% url 'single_training_view' training.id %}">{{ training.name }}</a></td>
+                    <td>{{ training.time_start|date:'F d, Y H:i' }}</td>
+                    <td>{{ training.time_end|date:'F d, Y H:i' }}</td>
+                </tr>
+            {% endfor %}
+        </table>
+    {% else %}
+        <p>You don't have any trainings yet.</p>
+    {% endif %}
+
+
+{% endblock %}

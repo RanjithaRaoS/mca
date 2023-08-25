@@ -1,0 +1,85 @@
+{% load static %}
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Dashboard - Your Fitness Tracker</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <style>
+        /* Additional styles specific to this page */
+        body {
+            background-color: #f5f5f5;
+            font-family: Arial, sans-serif;
+            margin: 0;
+        }
+        .wrapper {
+            background-color: #ffffff;
+            border-radius: 10px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            margin: 100x;
+            padding: 100px;
+        }
+        header {
+            background-color: #581845;
+            color: #ffffff;
+            padding: 10px;
+            text-align: center;
+        }
+        nav ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: inline;
+            justify-content: left;
+            flex-wrap: nowrap;
+        }
+        nav ul li {
+            margin: 0 0.5px;
+            padding:0px;
+        }
+        nav ul li a {
+            color: #f47e60;
+            text-decoration: none;
+            font-size: 15px;
+            padding: 0px; /* Add padding */
+            margin: 0;
+
+        }
+        footer {
+            background-color: #581845;
+            color: #ffffff;
+            text-align: center;
+            padding: 10px;
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+<!--    <div class="wrapper">-->
+        <header>
+            <h1>Your Fitness Tracker</h1>
+        </header>
+        <h2>Hello, {{ user.username }}!</h2>
+        <nav>
+            <ul>
+                <li><a href="{% url 'user_profile' %}">User Profile</a></li>
+                <li><a href="/record-weight/">My Body Weight</a></li>
+                <li><a href="/weight-progress/">Weight Progress</a></li>
+                <li><a href="/trainings/">My Trainings</a></li>
+                <li><a href="/progress-analysis/">Progress Analysis</a></li>
+                <li><a href="/create-training/">+ New Training</a></li>
+            </ul>
+        </nav>
+        <section>
+            {% block content %}
+            {% endblock %}
+        </section>
+        <footer>
+            MCA Project by Ranjitha Rao
+        </footer>
+<!--    </div>-->
+</body>
+</html>

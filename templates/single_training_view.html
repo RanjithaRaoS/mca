@@ -1,0 +1,41 @@
+
+
+{% block content %}
+    <h2>Training Details</h2>
+
+    <h3>{{ training.name }}</h3>
+    <p><strong>Start Date:</strong> {{ training.started|date:'F d, Y H:i' }}</p>
+    <p><strong>End Date:</strong> {{ training.ended|date:'F d, Y H:i' }}</p>
+    <p><strong>Duration:</strong> <span id="duration">{{ duration_minutes }}</span> minutes</p>
+
+    <h4>Exercises</h4>
+    <table>
+        <tr>
+            <th>Name</th>
+            <th>Weight (kg)</th>
+            <th>Weight Per</th>
+            <th>Series</th>
+        </tr>
+        {% for exercise in exercises %}
+            <tr>
+                <td>{{ exercise.name }}</td>
+                <td>{{ exercise.weight_kg }}</td>
+                <td>{{ exercise.weight_per }}</td>
+                <td>{{ exercise.series }}</td>
+            </tr>
+        {% endfor %}
+    </table>
+    <div>
+        <form method="post" action="{% url 'start_training' training_id=training.id %}">
+            {% csrf_token %}
+            <button type="submit">Start Training</button>
+        </form>
+        <form method="post" action="{% url 'stop_training' training_id=training.id %}">
+            {% csrf_token %}
+            <button type="submit">End Training</button>
+        </form>
+    </div>
+
+    <a href="{% url 'add_exercises_to_training' training_id=training.id %}">Add Exercises</a>
+    <a href="{% url 'trainings' %}">Back to My Trainings</a>
+{% endblock %}

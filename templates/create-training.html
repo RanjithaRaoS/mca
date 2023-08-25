@@ -1,0 +1,35 @@
+{% load static %}
+
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Training</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+
+<div class="wrapper">
+    <header>
+        <h1>Weight Training Tracker</h1>
+    </header>
+
+    <section>
+        <h2>Create Training</h2>
+
+        <form method="post" class="create-training-form">
+            {% csrf_token %}
+
+            <label for="id_{{ training_form.name.name }}">Training Name:</label>
+            {{ training_form.name }}
+
+            <button type="submit">Create Training</button>
+        </form>
+
+        <a href="{% url 'trainings' %}">Back to My Trainings</a>
+    </section>
+</div>
+
+</body>
+</html>

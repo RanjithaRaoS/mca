@@ -1,0 +1,54 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Exercises to Training</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+
+<div class="wrapper">
+    <header>
+        <h1>Weight Training Tracker</h1>
+    </header>
+
+    <section>
+        <h2>Add Exercises to Training "{{ training.name }}"</h2>
+
+        <form method="post" class="add-exercises-form">
+        {% csrf_token %}
+
+        {{ formset.management_form }}
+
+        {% for form in formset %}
+            {{ form.exercise_name.label_tag }}
+            {{ form.exercise_name }}
+
+            {{ form.weight_kg.label_tag }}
+            {{ form.weight_kg }}
+
+            {{ form.weight_per.label_tag }}
+            {{ form.weight_per }}
+
+            {{ form.series.label_tag }}
+            {{ form.series }}
+
+            {{ form.reps.label_tag }}
+            {{ form.reps }}
+
+            <hr>
+        {% endfor %}
+
+        <button type="submit">Add Exercises and Continue</button>
+        </form>
+
+        <a href="{% url 'trainings' %}">Cancel</a>
+        <a href="{% url 'single_training_view' training_id=training.id %}">Back to Training</a>
+    </section>
+</div>
+
+</body>
+</html>

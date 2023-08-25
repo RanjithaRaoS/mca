@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="chart-container">
+    <h2>Training Progress</h2>
+    {{ progress_chart|safe }}
+</div>
+<div class="chart-container">
+    <h2>Average Weight</h2>
+    {{ weight_chart|safe }}
+</div>
+
+<table class="training-table">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Duration (minutes)</th>
+            <th>Average Weight (kg)</th>
+            <th>Dates</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for training in training_data %}
+        <tr>
+            <td>{{ training.name }}</td>
+            <td>{{ training.duration }}</td>
+            <td>{{ training.avg_weight }}</td>
+            <td>{{ training.dates }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}
