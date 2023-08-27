@@ -11,9 +11,10 @@ urlpatterns = [
     path('', LoginView.as_view(), name='login'),  # Redirect to the login view
     path('register/', register, name='register'),
     path('base/', trainings_view, name='base'),  # main page shows trainings/
+    path('general/',trainings_view, name='general'),
     path('trainings/', trainings_view, name='trainings'),
     path('trainings/<int:training_id>/', single_training_view, name='single_training_view'),
-    path('trainings/<int:training_id>/start/', start_training_view, name='start_training'),
+    path('start-training/<int:training_id>/', start_training_view, name='start_training'),
     path('trainings/<int:training_id>/stop/', stop_training_view, name='stop_training'),
 
     path('add_exercises_to_training/<int:training_id>/', add_exercises_to_training_view, name='add_exercises_to_training'),

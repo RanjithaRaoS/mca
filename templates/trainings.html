@@ -13,8 +13,8 @@
             {% for training in trainings %}
                 <tr>
                     <td><a href="{% url 'single_training_view' training.id %}">{{ training.name }}</a></td>
-                    <td>{{ training.time_start|date:'F d, Y H:i' }}</td>
-                    <td>{{ training.time_end|date:'F d, Y H:i' }}</td>
+                    <td>{{ training.started|date:'F d, Y H:i' }}</td>
+                    <td>{{ training.ended|date:'F d, Y H:i' }}</td>
                 </tr>
             {% endfor %}
         </table>

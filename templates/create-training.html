@@ -9,6 +9,14 @@
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
 </head>
 <body>
+<div class="user-info">
+    {% if user.is_authenticated %}
+        <p>Welcome, {{ user.username }}!</p>
+    {% else %}
+        <p>You are not logged in.</p>
+    {% endif %}
+</div>
+
 
 <div class="wrapper">
     <header>

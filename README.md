@@ -1,22 +1,24 @@
-Weight Training Tracker
+Your Fitness Tracker
 =======================
 
 Weight Training Tracker is a Django application written in Python 3. It allows you to keep track on your weight training, by recording the time of the training, and number of series and repetitions of each exercise in the training. 
 
 <br />
+Create a New Folder and Create new virtual environment 
+python3 -m venv venv
+source venv/bin/activate
+
 
 ## Running the app
 
 Clone the repository and change the directory.
 ```bash
-git clone https://github.com/AlbertRtk/weight_training_tracker.git
-cd weight_training_tracker
-```
+git clone https://github.com/RanjithaRaoS/mca.git
 
-Create new virtual environment and install requirements.
+```
+Install requirements.
 ```bash
-python3 -m venv venv
-source venv/bin/activate
+
 python3 -m pip install -r requirements.txt
 ```
 

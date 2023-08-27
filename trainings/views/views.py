@@ -137,17 +137,20 @@ def add_exercises_to_training_view(request, training_id):
 
 
 def start_training_view(request, training_id):
+    print("getting inside start training")
     training = Training.objects.get(id=training_id)
-    if not training.started:
-        training.started = timezone.now()
-        training.save()
+    training.started = timezone.now()
+    training.save()
+    print(training.started)
     return redirect('single_training_view', training_id=training_id)
 
 def stop_training_view(request, training_id):
+
     training = Training.objects.get(id=training_id)
-    if training.started and not training.ended:
-        training.ended = timezone.now()
-        training.save()
+    training.ended = timezone.now()
+    elapsed_time = training.ended - training.started
+    training.duration = elapsed_time.total_seconds() // 60
+    training.save()
     return redirect('single_training_view', training_id=training_id)
 
 def trainings_view(request):
@@ -207,3 +210,39 @@ def get_weight_plot(training_data):
     avg_weights = [training['avg_weight'] for training in training_data]
 
     return go.Figure(data=[go.Bar(x=training_names, y=avg_weights)])
+
+
+from django.shortcuts import render, redirect, get_object_or_404
+from django.contrib.auth.decorators import login_required
+from ..models import Meal, MealFood, FoodItem, MealPlan, MealPlanMeal
+
+
+@login_required
+def create_meal_plan_view(request):
+    if request.method == 'POST':
+        name = request.POST['name']
+        meal_plan = MealPlan.objects.create(user=request.user, name=name)
+        return redirect('add_meals_to_meal_plan', meal_plan_id=meal_plan.id)
+    return render(request, 'create_meal_plan.html')
+
+
+@login_required
+def add_meals_to_meal_plan_view(request, meal_plan_id):
+    meal_plan = MealPlan.objects.get(id=meal_plan_id)
+    meals = Meal.objects.filter(user=request.user)
+
+    if request.method == 'POST':
+        selected_meals = request.POST.getlist('selected_meals')
+        for order, meal_id in enumerate(selected_meals, start=1):
+            MealPlanMeal.objects.create(meal_plan=meal_plan, meal_id=meal_id, order=order)
+        return redirect('view_meal_plan', meal_plan_id=meal_plan.id)
+
+    return render(request, 'add_meals_to_meal_plan.html', {'meal_plan': meal_plan, 'meals': meals})
+
+
+@login_required
+def view_meal_plan_view(request, meal_plan_id):
+    meal_plan = MealPlan.objects.get(id=meal_plan_id)
+    meal_plan_meals = MealPlanMeal.objects.filter(meal_plan=meal_plan)
+    return render(request, 'view_meal_plan.html', {'meal_plan': meal_plan, 'meal_plan_meals': meal_plan_meals})
+

@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <h2>Create Meal Plan</h2>
+  <form method="post">
+    {% csrf_token %}
+    <label for="name">Meal Plan Name:</label>
+    <input type="text" id="name" name="name">
+    <button type="submit">Create Meal Plan</button>
+  </form>
+{% endblock %}

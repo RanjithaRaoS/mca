@@ -1,14 +1,25 @@
 
 
 
+
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Weight Tracker</title>
+    <title>Your Fitness Tracker</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
 </head>
 <body>
+<div class="user-info">
+    {% if user.is_authenticated %}
+        <p>Welcome, {{ user.username }}!</p>
+    {% else %}
+        <p>You are not logged in.</p>
+    {% endif %}
+</div>
+
     <h1>Weight Tracker</h1>
 
     <h2>Enter Weight</h2>

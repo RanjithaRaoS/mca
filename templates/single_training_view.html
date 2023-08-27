@@ -1,12 +1,18 @@
 
-
+{% load static %}
 {% block content %}
+
+    <head>
+        <h1>Your Fitness Tracker</h1>
+        <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    </head>
+    <h2>Hello, {{ user.username }}!</h2>
     <h2>Training Details</h2>
 
     <h3>{{ training.name }}</h3>
     <p><strong>Start Date:</strong> {{ training.started|date:'F d, Y H:i' }}</p>
     <p><strong>End Date:</strong> {{ training.ended|date:'F d, Y H:i' }}</p>
-    <p><strong>Duration:</strong> <span id="duration">{{ duration_minutes }}</span> minutes</p>
+    <p><strong>Duration:</strong> <span id="duration">{{ training.duration }}</span> minutes</p>
 
     <h4>Exercises</h4>
     <table>
@@ -34,8 +40,15 @@
             {% csrf_token %}
             <button type="submit">End Training</button>
         </form>
+
     </div>
+
+
 
     <a href="{% url 'add_exercises_to_training' training_id=training.id %}">Add Exercises</a>
     <a href="{% url 'trainings' %}">Back to My Trainings</a>
+
+
 {% endblock %}
+
+
